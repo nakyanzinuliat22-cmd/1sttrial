@@ -100,3 +100,21 @@ function submitForm() {
   document.getElementById("loginOverlay").style.display = "none";
 }
 </script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCDdFuX3IYvpAmpgXGpkZMfkcUV_s7tsuk",
+    authDomain: "sttrail-backend.firebaseapp.com",
+    projectId: "sttrail-backend",
+    storageBucket: "sttrail-backend.firebasestorage.app",
+    messagingSenderId: "284094704530",
+    appId: "1:284094704530:web:51050a2a3f6ea8305b2f4b"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  console.log("Firebase connected ✅");
+</script>
