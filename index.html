@@ -1,0 +1,102 @@
+<style>
+#loginOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: Arial, sans-serif;
+}
+
+#loginBox {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 360px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.35);
+}
+
+#loginBox h2 {
+  margin: 0 0 8px;
+}
+
+#loginBox p {
+  margin: 0 0 15px;
+  color: #555;
+}
+
+#loginBox input {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+#loginBox button {
+  width: 100%;
+  padding: 11px;
+  margin-top: 10px;
+  background: #1a73e8;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+#loginBox button:hover {
+  background: #1558b0;
+}
+</style>
+
+<div id="loginOverlay">
+  <div id="loginBox">
+    <h2>Welcome 👋</h2>
+    <p>Please enter your details to continue</p>
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Your Email" required>
+    <button onclick="submitForm()">Continue</button>
+  </div>
+</div>
+
+<script>
+const storageKey = "ultrab_popup_completed";
+
+setTimeout(() => {
+  if (!localStorage.getItem(storageKey)) {
+    document.getElementById("loginOverlay").style.display = "flex";
+  }
+}, 5000);
+
+function submitForm() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  if (!name || !email) {
+    alert("Please enter your name and email.");
+    return;
+  }
+
+  const formURL =
+    "https://docs.google.com/forms/d/e/1FAIpQLSdSCY5c_bF0FYS1ztgygb0qXAdcbry0k-22cPyiVvr0I80Q_g/formResponse";
+
+  const formData = new FormData();
+  formData.append("entry.874887932", name);
+  formData.append("entry.128166365", email);
+
+  fetch(formURL, {
+    method: "POST",
+    mode: "no-cors",
+    body: formData
+  });
+
+  localStorage.setItem(storageKey, "true");
+  document.getElementById("loginOverlay").style.display = "none";
+}
+</script>
